@@ -3,8 +3,11 @@ package com.example.oladapo.timestables;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SeekBar;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        SeekBar timesTableSeekBar = findViewById(R.id.timesTableSeekBar);
+        final SeekBar timesTableSeekBar = findViewById(R.id.timesTableSeekBar);
         ListView timesTableListView = findViewById(R.id.timesTableListView);
 
         timesTableSeekBar.setMax(20);
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                 if (progress < min) {
 
                     timesTable = min;
+                    timesTableSeekBar.setProgress(min);
 
                 } else {
 
@@ -51,5 +55,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        int timesTable = 10;
+
+        ArrayList<String> timesTableContent = new ArrayList<>();
+
+        for (int i = 1; i <= 10; i++) {
+
+            timesTableContent.add(Integer.toString(i * timesTable));
+
+        }
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, timesTableContent);
+
+        timesTableListView.setAdapter(arrayAdapter);
     }
 }
